@@ -1,31 +1,33 @@
 # 999 - 99 / 100
 # 99 - 9 / 10
 
+
 def lettering(n):
 	if n==1000:	return len("one") + len("Thousand")
 	if n>=100 and n<=999:
 		result = 0
 		dig = (n - n%100)/100
-		print("%d: %d" %(n, dig))
-		if n != (n/100)*100: result += len("and")
-		result = digit(dig)+ len("hundred") + lettering(n - (n/100)*100)
+		print("(100~999)\t%d:\t%d" %(n, dig))
+		if n != (n/100)*100:
+			result += len("and")
+		result += digit(dig)+ len("hundred") + lettering(n - (n/100)*100)
 		return result
 	elif n>=20 and n<=99:
 		dig = (n - n%10)/10
-		print("%d: %d" %(n, dig))
+		print("(20~99)\t\t%d:\t\t%d" %(n, dig))
 		return twenDigit(dig) + lettering(n - (n/10)*10)
 	elif n>=10 and n<=19:
-		print("%d: %d" %(n, n))
+		print("(10~19)\t\t%d:\t\t%d" %(n, n))
 		return tenDigit(n)
 	elif n>=1 and n<=9:
-		print("%d: %d" %(n, n))
+		print("(1~9)\t\t\t%d:\t\t%d" %(n, n))
 		return digit(n)
 	else:	return 0
 
 def twenDigit(n):
 	if n==2:	return len("twenty")
 	elif n==3:	return len("thirty")
-	elif n==4:	return len("fourty")
+	elif n==4:	return len("forty")
 	elif n==5:	return len("fifty")
 	elif n==6:	return len("sixty")
 	elif n==7:	return len("seventy")
@@ -46,8 +48,7 @@ def tenDigit(n):
 
 
 def digit(n):
-	if n==0: 	return len("zero")
-	elif n==1: 	return len("one")
+	if n==1: 	return len("one")
 	elif n==2:	return len("two")
 	elif n==3: 	return len("three")
 	elif n==4:	return len("four")
@@ -56,7 +57,7 @@ def digit(n):
 	elif n==7:	return len("seven")
 	elif n==8:	return len("eight")
 	elif n==9:	return len("nine")
-	else:print("error!")
+	else:  return 0
 
 sum = 0
 
@@ -64,3 +65,5 @@ for i in range(1, 1001):
 	sum += lettering(i)
 
 print(sum)
+
+print lettering(342)
