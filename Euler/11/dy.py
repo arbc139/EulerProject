@@ -11,27 +11,39 @@ while True:
 
     M.append([int(n) for n in line.split()])
 
-def MOperation(M, i, j, direction):
-    if outCase(i, j, direction)
 
-    result = M[i][j]
+answer = set()
+
+print M
+
+def find_horizontal():
+  for row in M:
+    for idx in range(0, 17):
+      partial_row = row[idx:idx+4]
+      answer.add(reduce(lambda x, y: x*y, partial_row))
+
+def find_vertical():
+  for c_idx in range(0, 20):
+    for r_idx in range(0, 17):
+      partial_sum = M[r_idx][c_idx] * M[r_idx+1][c_idx] * M[r_idx+2][c_idx] * M[r_idx+3][c_idx]
+      answer.add(partial_sum)
+
+def find_upCross():
+  for r_idx in range(3, 20):
+    for c_idx in range(0, 17):
+      partial_sum = M[r_idx][c_idx] * M[r_idx-1][c_idx+1] * M[r_idx-2][c_idx+2] * M[r_idx-3][c_idx+3]
+      answer.add(partial_sum)
 
 
-def outCase(i, j, direction):
-    if direction == "left" and j<=2:
-        return False
-    elif direction == "right" and j>=size-3:
-        return False
-    elif direction == "up" and i<=2:
-        return False
-    elif direction == "down" and i>=size-3:
-        return False
-    elif direction == "leftUp" and (j<=2 or i<=2):
-        return False
-    elif direction == "rightUp" and (j>=size-3 or i<=2):
-        return False
-    elif direction == "leftDown" and (j<=2 or i>=size-3):
-        return False
-    elif direction == "rightDown" and (j>=size-3 or i>=size-3):
-        return False
-    else:   return True
+def find_downCross():
+  for r_idx in range(0, 17):
+    for c_idx in range(0, 17):
+      partial_sum = M[r_idx][c_idx] * M[r_idx+1][c_idx+1] * M[r_idx+2][c_idx+2] * M[r_idx+3][c_idx+3]
+      answer.add(partial_sum)
+
+find_horizontal()
+find_vertical()
+find_upCross()
+find_downCross()
+
+print max(answer)
