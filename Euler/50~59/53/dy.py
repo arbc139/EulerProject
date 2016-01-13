@@ -1,25 +1,23 @@
-import os
-from poker import Poker
+import math
 
-def test_place(first_deck, second_deck):
-  game = poker.Poker(first_deck, second_deck)
-  print game.test()
+def combination(factorial_dict, n, r):
+  if n < r: return False
+  return factorial_dict[n] / (factorial_dict[r] * factorial_dict[n-r])
 
-
-f = open(os.path.expanduser("~/Documents/Development/Python/Project/Euler/input/53.txt"), "r")
-
-first_decks = []
-second_decks = []
-
-while True:
-    line = f.readline()
-    if not line: break
-
-    match = line.strip('\n').split(" ")
-
-    first_decks.append(match[:5])
-    second_decks.append(match[5:])
+answer = list()
+SIZE = 1000000
 
 
-poker_game = Poker(first_decks, second_decks)
-print poker_game.play()
+factorial_dict = dict()
+
+for i in range(0, 101):
+  factorial_dict[i] = math.factorial(i)
+
+
+for n in range(1, 101):
+  for r in range(0, n+1):
+    if combination(factorial_dict, n, r) > SIZE:
+      answer.append([n, r])
+
+print answer
+print len(answer)
