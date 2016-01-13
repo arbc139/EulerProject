@@ -38,8 +38,43 @@ def factor(n):
 
 
 # prime test
-def is_prime(a):
-    return all(a % i for i in xrange(2, a))
+import random
+_mrpt_num_trials = 5 # number of bases to test
+def is_prime(n):
+    assert n >= 2
+    # special case 2
+    if n == 2:
+        return True
+    # ensure n is odd
+    if n % 2 == 0:
+        return False
+    # write n-1 as 2**s * d
+    # repeatedly try to divide n-1 by 2
+    s = 0
+    d = n-1
+    while True:
+        quotient, remainder = divmod(d, 2)
+        if remainder == 1:
+            break
+        s += 1
+        d = quotient
+    assert(2**s * d == n-1)
+ 
+    # test the base a to see whether it is a witness for the compositeness of n
+    def try_composite(a):
+        if pow(a, d, n) == 1:
+            return False
+        for i in range(s):
+            if pow(a, 2**i * d, n) == n-1:
+                return False
+        return True # n is definitely composite
+ 
+    for i in range(_mrpt_num_trials):
+        a = random.randrange(2, n)
+        if try_composite(a):
+            return False
+    return True # no base tested showed n as composite
+
 
 
 # limit까지의 프라임 찾기
@@ -83,3 +118,21 @@ def to_number(n_list):
     rdx = len(n_list) - idx - 1
     final_number = final_number + (num * 10**rdx)
   return final_number
+
+
+
+# 중복순열, 중복조합 가능하게 해주는놈
+def unique(iterable):
+  seen = set()
+  for x in iterable:
+    if x in seen:
+      continue
+    seen.add(x)
+    yield x
+
+
+# 이 list가 palindrome인가?
+def isListPalindrome(n_list):
+  for i in range(0, len(n_list)/2):
+    if n_list[i] != n_list[-(i+1)]: return False
+  return True

@@ -1,8 +1,3 @@
-def isPalindrome(list):
-  for i in range(0, len(list)/2):
-    if list[i] != list[-(i+1)]: return False
-  return True
-
 # number to list
 def to_list(n):
   if n < 10:
