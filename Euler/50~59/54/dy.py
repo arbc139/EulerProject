@@ -6,7 +6,7 @@ def test_place(first_deck, second_deck):
   print game.test()
 
 
-f = open(os.path.expanduser("~/Documents/Development/Python/Project/Euler/input/53.txt"), "r")
+f = open(os.path.expanduser("~/Documents/Development/Python/Project/Euler/input/54.txt"), "r")
 
 first_decks = []
 second_decks = []

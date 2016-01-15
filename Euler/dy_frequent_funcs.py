@@ -1,3 +1,18 @@
+# 파일 리더
+import os
+f = open(os.path.expanduser("~/Documents/Development/Python/Project/Euler/input/54.txt"), "r")
+
+while True:
+  line = f.readline()
+  if not line: break
+
+  # match = line.strip('\n').split(" ")
+
+
+
+
+
+
 # permutation
 def permutations(iterable, r=None):
   pool = tuple(iterable)
